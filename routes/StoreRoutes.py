@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
-from utils.db import db
-from models.Store import Store
+from utils import db
+from models import Store
 
 storeBp = Blueprint('store', __name__)
 
