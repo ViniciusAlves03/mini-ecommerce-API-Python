@@ -26,8 +26,12 @@ def getStore(store_id):
 def updateStore(store_id):
     store = Store.query.get_or_404(store_id)
     data = request.get_json()
+
+    allowed_keys = ['username', 'email', 'cnpj']
     for key, value in data.items():
-        setattr(store, key, value)
+        if key in allowed_keys:
+            setattr(store, key, value)
+
     db.session.commit()
     return jsonify(store.toDict())
 

@@ -1,0 +1,23 @@
+# Diretórios gerados
+__pycache__/
+.pytest_cache/
+.env
+
+# Arquivos temporários
+*.db
+*.pid
+
+# Configurações de desenvolvimento
+.flaskenv
+
+# Testes
+tests/
+
+# Documentação
+docs/
+
+# Logs
+logs/
+
+# Ambiente virtual
+venv/

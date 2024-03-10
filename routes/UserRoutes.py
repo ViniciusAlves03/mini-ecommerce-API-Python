@@ -26,8 +26,12 @@ def getUser(user_id):
 def updateUser(user_id):
     user = User.query.get_or_404(user_id)
     data = request.get_json()
+
+    allowed_keys = ['username', 'email']
     for key, value in data.items():
-        setattr(user, key, value)
+        if key in allowed_keys:
+            setattr(user, key, value)
+
     db.session.commit()
     return jsonify(user.toDict())
 
