@@ -1,4 +1,4 @@
-from utils.db import db
+from utils import db
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -7,6 +7,7 @@ class Product(db.Model):
     quantity = db.Column(db.Integer, nullable=False)
     store_id = db.Column(db.Integer, db.ForeignKey('store.id'), nullable=False)
     store = db.relationship('Store', backref='products')
+    cart = db.relationship('Cart', backref='product')
 
     def __repr__(self):
         return '<Product %r>' % self.name

@@ -1,4 +1,4 @@
-from utils.db import db
+from utils import db
 
 class Store(db.Model):
     id = db.Column(db.Integer, primary_key=True)

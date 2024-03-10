@@ -1,7 +1,7 @@
 from flask import Flask
 from utils import db
 from config import db_config
-from routes import userBp, storeBp, productBp
+from routes import userBp, storeBp, productBp, cartBp
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = db_config['DB_CONNECTION']
@@ -15,6 +15,7 @@ with app.app_context():
 app.register_blueprint(userBp)
 app.register_blueprint(storeBp)
 app.register_blueprint(productBp)
+app.register_blueprint(cartBp)
 
 if __name__ == '__main__':
     app.run(debug=True)
