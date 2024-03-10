@@ -15,5 +15,5 @@ class Store(db.Model):
             "username": self.username,
             "email": self.email,
             "cnpj": self.cnpj,
-            "passworrd": self.password,
+            "password": self.password,
         }

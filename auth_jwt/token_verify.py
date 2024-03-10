@@ -1,7 +1,7 @@
 from functools import wraps
 from flask import jsonify, request
 import jwt
-from config.jwt_config_file import jwt_config
+from config import jwt_config
 from .token_handler import token_creator
 
 def token_verify(function: callable) -> callable:
