@@ -2,7 +2,7 @@ import jwt
 from datetime import datetime, timedelta
 import time
 
-class TokenCreator:
+class Token:
 
     def __init__(self, token_key:str, exp_time_min:int, refresh_time_min:int):
         self.__TOKEN_KEY = token_key
