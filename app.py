@@ -1,6 +1,6 @@
 from flask import Flask
 from utils import db
-from config import db_config
+from config import db_config, swagger_config, swaggerui_blueprint
 from routes import userBp, storeBp, productBp, cartBp
 
 app = Flask(__name__)
@@ -16,6 +16,8 @@ app.register_blueprint(userBp)
 app.register_blueprint(storeBp)
 app.register_blueprint(productBp)
 app.register_blueprint(cartBp)
+
+app.register_blueprint(swaggerui_blueprint, url_prefix=swagger_config['SWAGGER_URL'])
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,385 @@
+swagger: '2.0'
+info:
+  title: API Flask Example
+  description: Example of API implementation in Flask
+  version: '1.0'
+tags:
+  - name: User
+    description: Operations related to users
+  - name: Store
+    description: Operations related to stores
+  - name: Cart
+    description: Operations related to shopping cart
+paths:
+  /users:
+    get:
+      tags:
+        - User
+      summary: Retrieves a list of users
+      responses:
+        '200':
+          description: A list of users
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+  /user:
+    post:
+      tags:
+        - User
+      summary: Create a new user
+      parameters:
+        - in: body
+          name: user
+          description: The user to create
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '201':
+          description: User created successfully
+          schema:
+            $ref: '#/definitions/User'
+  /user/login:
+    post:
+      tags:
+        - User
+      summary: User login
+      parameters:
+        - in: body
+          name: user
+          description: User login credentials
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+      responses:
+        '200':
+          description: User logged in successfully
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+  /user/{user_id}:
+    get:
+      tags:
+        - User
+      summary: Retrieves a user by ID
+      parameters:
+        - in: path
+          name: user_id
+          description: ID of the user to retrieve
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: User found
+          schema:
+            $ref: '#/definitions/User'
+    put:
+      tags:
+        - User
+      summary: Updates a user by ID
+      parameters:
+        - in: path
+          name: user_id
+          description: ID of the user to update
+          required: true
+          type: integer
+        - in: body
+          name: user
+          description: The user data to update
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: User updated successfully
+          schema:
+            $ref: '#/definitions/User'
+    delete:
+      tags:
+        - User
+      summary: Deletes a user by ID
+      parameters:
+        - in: path
+          name: user_id
+          description: ID of the user to delete
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: User deleted successfully
+  /stores:
+    get:
+      tags:
+        - Store
+      summary: Retrieves a list of stores
+      responses:
+        '200':
+          description: A list of stores
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Store'
+    post:
+      tags:
+        - Store
+      summary: Create a new store
+      parameters:
+        - in: body
+          name: store
+          description: The store to create
+          required: true
+          schema:
+            $ref: '#/definitions/Store'
+      responses:
+        '201':
+          description: Store created successfully
+          schema:
+            $ref: '#/definitions/Store'
+  /store/login:
+    post:
+      tags:
+        - Store
+      summary: Store login
+      parameters:
+        - in: body
+          name: store
+          description: Store login credentials
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+      responses:
+        '200':
+          description: Store logged in successfully
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+  /store/{store_id}:
+    get:
+      tags:
+        - Store
+      summary: Retrieves a store by ID
+      parameters:
+        - in: path
+          name: store_id
+          description: ID of the store to retrieve
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Store found
+          schema:
+            $ref: '#/definitions/Store'
+    put:
+      tags:
+        - Store
+      summary: Updates a store by ID
+      parameters:
+        - in: path
+          name: store_id
+          description: ID of the store to update
+          required: true
+          type: integer
+        - in: body
+          name: store
+          description: The store data to update
+          required: true
+          schema:
+            $ref: '#/definitions/Store'
+      responses:
+        '200':
+          description: Store updated successfully
+          schema:
+            $ref: '#/definitions/Store'
+    delete:
+      tags:
+        - Store
+      summary: Deletes a store by ID
+      parameters:
+        - in: path
+          name: store_id
+          description: ID of the store to delete
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Store deleted successfully
+  /user/{user_id}/cart:
+    get:
+      tags:
+        - Cart
+      summary: Retrieves the user's cart
+      parameters:
+        - in: path
+          name: user_id
+          description: ID of the user
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Cart found
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Cart'
+  /user/{user_id}/cart/add:
+    post:
+      tags:
+        - Cart
+      summary: Add a product to the cart
+      parameters:
+        - in: path
+          name: user_id
+          description: ID of the user
+          required: true
+          type: integer
+        - in: body
+          name: cart
+          description: The cart data to add
+          required: true
+          schema:
+            $ref: '#/definitions/Cart'
+      responses:
+        '201':
+          description: Product added to cart successfully
+  /user/{user_id}/cart/buy_all:
+    post:
+      tags:
+        - Cart
+      summary: Buy all products in the cart
+      parameters:
+        - in: path
+          name: user_id
+          description: ID of the user
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: All products bought successfully
+  /user/{user_id}/cart/buy_item/{product_id}:
+    post:
+      tags:
+        - Cart
+      summary: Buy a specific product in the cart
+      parameters:
+        - in: path
+          name: user_id
+          description: ID of the user
+          required: true
+          type: integer
+        - in: path
+          name: product_id
+          description: ID of the product to buy
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Product bought successfully
+  /user/{user_id}/cart/update/{product_id}:
+    put:
+      tags:
+        - Cart
+      summary: Update quantity of a product in the cart
+      parameters:
+        - in: path
+          name: user_id
+          description: ID of the user
+          required: true
+          type: integer
+        - in: path
+          name: product_id
+          description: ID of the product to update
+          required: true
+          type: integer
+        - in: body
+          name: cart
+          description: The cart data to update
+          required: true
+          schema:
+            $ref: '#/definitions/Cart'
+      responses:
+        '200':
+          description: Quantity updated successfully
+  /user/{user_id}/cart/delete_item/{product_id}:
+    delete:
+      tags:
+        - Cart
+      summary: Delete a specific product from the cart
+      parameters:
+        - in: path
+          name: user_id
+          description: ID of the user
+          required: true
+          type: integer
+        - in: path
+          name: product_id
+          description: ID of the product to delete
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Product removed from cart successfully
+  /user/{user_id}/cart/clear:
+    delete:
+      tags:
+        - Cart
+      summary: Clear the user's cart
+      parameters:
+        - in: path
+          name: user_id
+          description: ID of the user
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Cart cleared successfully
+definitions:
+  User:
+    type: object
+    properties:
+      id:
+        type: integer
+      username:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+  Store:
+    type: object
+    properties:
+      id:
+        type: integer
+      username:
+        type: string
+      email:
+        type: string
+      cnpj:
+        type: string
+      password:
+        type: string
+  Cart:
+    type: object
+    properties:
+      id:
+        type: integer
+      cart_id:
+        type: integer
+      product_id:
+        type: integer
+      quantity:
+        type: integer
