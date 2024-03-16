@@ -10,6 +10,8 @@ tags:
     description: Operations related to stores
   - name: Cart
     description: Operations related to shopping cart
+  - name: Product
+    description: Operations related to products
 paths:
   /users:
     get:
@@ -76,6 +78,8 @@ paths:
           description: ID of the user to retrieve
           required: true
           type: integer
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: User found
@@ -97,6 +101,8 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/User'
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: User updated successfully
@@ -112,6 +118,8 @@ paths:
           description: ID of the user to delete
           required: true
           type: integer
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: User deleted successfully
@@ -200,6 +208,8 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/Store'
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: Store updated successfully
@@ -215,6 +225,8 @@ paths:
           description: ID of the store to delete
           required: true
           type: integer
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: Store deleted successfully
@@ -229,6 +241,8 @@ paths:
           description: ID of the user
           required: true
           type: integer
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: Cart found
@@ -253,6 +267,8 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/Cart'
+      security:
+        - BearerAuth: []
       responses:
         '201':
           description: Product added to cart successfully
@@ -267,6 +283,8 @@ paths:
           description: ID of the user
           required: true
           type: integer
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: All products bought successfully
@@ -286,6 +304,8 @@ paths:
           description: ID of the product to buy
           required: true
           type: integer
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: Product bought successfully
@@ -311,6 +331,8 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/Cart'
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: Quantity updated successfully
@@ -330,6 +352,8 @@ paths:
           description: ID of the product to delete
           required: true
           type: integer
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: Product removed from cart successfully
@@ -344,9 +368,136 @@ paths:
           description: ID of the user
           required: true
           type: integer
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: Cart cleared successfully
+  /products:
+    get:
+      tags:
+        - Product
+      summary: Return all products
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+  /store/{store_id}/products:
+    post:
+      tags:
+        - Product
+      summary: Create a new product in a specific store
+      parameters:
+        - in: path
+          name: store_id
+          description: ID of the store where the product will be created
+          required: true
+          type: integer
+        - in: body
+          name: product
+          description: Product data to be created
+          required: true
+          schema:
+            $ref: '#/definitions/Product'
+      security:
+        - BearerAuth: []
+      responses:
+        '201':
+          description: Product created successfully
+          schema:
+            $ref: '#/definitions/Product'
+
+  /products/{product_name}:
+    get:
+      tags:
+        - Product
+      summary: Returns a product by name
+      parameters:
+        - in: path
+          name: product_name
+          description: Name of the product to be searched
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Product'
+
+  /store/{store_id}/products/{product_id}:
+    get:
+      tags:
+        - Product
+      summary: Returns a specific product in a specific store
+      parameters:
+        - in: path
+          name: store_id
+          description: store ID
+          required: true
+          type: integer
+        - in: path
+          name: product_id
+          description: Product ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Product'
+
+    put:
+      tags:
+        - Product
+      summary: Updates a specific product in a specific store
+      parameters:
+        - in: path
+          name: store_id
+          description: store ID
+          required: true
+          type: integer
+        - in: path
+          name: product_id
+          description: Product ID
+          required: true
+          type: integer
+        - in: body
+          name: product
+          description: Product data to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/Product'
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Product updated successfully
+          schema:
+            $ref: '#/definitions/Product'
+
+    delete:
+      tags:
+        - Product
+      summary: Deletes a specific product in a specific store
+      parameters:
+        - in: path
+          name: store_id
+          description: store ID
+          required: true
+          type: integer
+        - in: path
+          name: product_id
+          description: Product ID
+          required: true
+          type: integer
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Product deleted successfully
 definitions:
   User:
     type: object
@@ -383,3 +534,23 @@ definitions:
         type: integer
       quantity:
         type: integer
+  Product:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      price:
+        type: number
+        format: float
+      quantity:
+        type: integer
+      store_id:
+        type: integer
+securityDefinitions:
+  BearerAuth:
+    type: apiKey
+    name: Authorization
+    in: header
+    description: Use Bearer token para autenticação
