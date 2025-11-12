@@ -1,4 +1,10 @@
 # API Mini E-commerce com Flask e SQLAlchemy
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-D71F00?style=for-the-badge&logo=sqlalchemy&logoColor=white)
+![SQL Server](https://img.shields.io/badge/SQL%20Server-CC2927?style=for-the-badge&logo=microsoftsqlserver&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
+![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black)
 
 Esta é uma API RESTful completa para um sistema de mini e-commerce, construída com Python, Flask e SQLAlchemy. O projeto inclui funcionalidades essenciais como autenticação de usuários e lojas, gerenciamento de produtos e um sistema de carrinho de compras.
 
@@ -36,7 +42,7 @@ Siga os passos abaixo para configurar e executar o projeto localmente.
 ### 2. Clone o Repositório
 
 ```bash
-git clone [https://github.com/ViniciusAlves03/mini-ecommerce-API-Python.git](https://github.com/ViniciusAlves03/mini-ecommerce-API-Python.git)
+git clone https://github.com/ViniciusAlves03/mini-ecommerce-API-Python.git
 cd mini-ecommerce-API-Python
 ```
 
