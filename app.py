@@ -5,10 +5,8 @@ from routes import userBp, storeBp, productBp, cartBp
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mssql+pyodbc://LAPTOP-J2EK2NSL\\SQLEXPRESS/PythonSQL?driver=ODBC+Driver+17+for+SQL+Server' #SQL Server
-#app.config['SQLALCHEMY_DATABASE_URI'] = db_config["DB_CONNECTION"] #PostGresSQL
-#app.config['SQLALCHEMY_DATABASE_URI'] = db_config["DB_CONNECTION_SERVER"] #SQL Server
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = db_config['SQLALCHEMY_DATABASE_URI']
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = db_config['SQLALCHEMY_TRACK_MODIFICATIONS']
 
 db.init_app(app)
 
